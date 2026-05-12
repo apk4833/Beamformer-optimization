@@ -1,0 +1,96 @@
+{
+  "batch_size": 8,
+  "device": "cuda",
+  "num_batches": 1,
+  "output_root": "outputs/evals",
+  "rate_threshold": 1.0,
+  "reference_wmmse_iters": 3,
+  "scenario_set": "literature_core",
+  "scenarios": [
+    {
+      "channel": "iid_rayleigh",
+      "load_ratio": 1.0,
+      "name": "fully_loaded_snr10",
+      "noise_var": 0.1,
+      "notes": "Pellaco-style N=M=4, P/sigma^2=10 dB.",
+      "num_tx_antennas": 4,
+      "num_users": 4,
+      "p_max": 1.0,
+      "pathloss_db_high": 0.0,
+      "pathloss_db_low": 0.0,
+      "snr_db": 10.0
+    },
+    {
+      "channel": "iid_rayleigh",
+      "load_ratio": 1.0,
+      "name": "fully_loaded_snr20",
+      "noise_var": 0.01,
+      "notes": "Pellaco-style N=M=4, P/sigma^2=20 dB.",
+      "num_tx_antennas": 4,
+      "num_users": 4,
+      "p_max": 1.0,
+      "pathloss_db_high": 0.0,
+      "pathloss_db_low": 0.0,
+      "snr_db": 20.0
+    },
+    {
+      "channel": "iid_rayleigh",
+      "load_ratio": 0.5,
+      "name": "lightly_loaded_snr10",
+      "noise_var": 0.1,
+      "notes": "Lightly loaded M>N generalization scenario.",
+      "num_tx_antennas": 8,
+      "num_users": 4,
+      "p_max": 1.0,
+      "pathloss_db_high": 0.0,
+      "pathloss_db_low": 0.0,
+      "snr_db": 10.0
+    },
+    {
+      "channel": "iid_rayleigh",
+      "load_ratio": 0.5,
+      "name": "lightly_loaded_snr20",
+      "noise_var": 0.01,
+      "notes": "Lightly loaded M>N generalization scenario.",
+      "num_tx_antennas": 8,
+      "num_users": 4,
+      "p_max": 1.0,
+      "pathloss_db_high": 0.0,
+      "pathloss_db_low": 0.0,
+      "snr_db": 20.0
+    },
+    {
+      "channel": "pathloss_rayleigh",
+      "load_ratio": 1.0,
+      "name": "pathloss_shift_snr10",
+      "noise_var": 0.1,
+      "notes": "Domain-shift test with per-user path loss U(-5,5) dB.",
+      "num_tx_antennas": 4,
+      "num_users": 4,
+      "p_max": 1.0,
+      "pathloss_db_high": 5.0,
+      "pathloss_db_low": -5.0,
+      "snr_db": 10.0
+    },
+    {
+      "channel": "pathloss_rayleigh",
+      "load_ratio": 1.0,
+      "name": "pathloss_shift_snr20",
+      "noise_var": 0.01,
+      "notes": "Domain-shift test with per-user path loss U(-5,5) dB.",
+      "num_tx_antennas": 4,
+      "num_users": 4,
+      "p_max": 1.0,
+      "pathloss_db_high": 5.0,
+      "pathloss_db_low": -5.0,
+      "snr_db": 20.0
+    }
+  ],
+  "seeds": [
+    0
+  ],
+  "wmmse_iters": [
+    1,
+    2
+  ]
+}

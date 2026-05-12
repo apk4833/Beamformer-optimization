@@ -1,0 +1,33 @@
+{
+  "batch_size": 512,
+  "checkpoint_every": 1000,
+  "device": "cuda",
+  "eval_batch_size": 2048,
+  "eval_every": 500,
+  "init_step": 0.05,
+  "log_every": 100,
+  "lr": 0.0003,
+  "model_type": "unfolded",
+  "num_layers": 5,
+  "output_root": "outputs/runs",
+  "pgd_steps": 3,
+  "rate_threshold": 1.0,
+  "scenario": {
+    "channel": "iid_rayleigh",
+    "load_ratio": 0.5,
+    "name": "lightly_loaded_snr10",
+    "noise_var": 0.1,
+    "notes": "Lightly loaded M>N generalization scenario.",
+    "num_tx_antennas": 8,
+    "num_users": 4,
+    "p_max": 1.0,
+    "pathloss_db_high": 0.0,
+    "pathloss_db_low": 0.0,
+    "snr_db": 10.0
+  },
+  "scenario_name": "lightly_loaded_snr10",
+  "scenario_set": "literature_core",
+  "seed": 0,
+  "steps": 5000,
+  "wmmse_iters": 50
+}

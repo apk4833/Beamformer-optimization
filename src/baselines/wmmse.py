@@ -2,8 +2,8 @@ from __future__ import annotations
 
 import torch
 
-from mu_miso_bf_lab.baselines.linear import rzf
-from mu_miso_bf_lab.core.complex_ops import effective_channels, project_sum_power, total_power, weighted_sum_rate
+from baselines.linear import rzf
+from core.complex_ops import effective_channels, project_sum_power, total_power, weighted_sum_rate
 
 
 def _solve_beamformer(
@@ -19,7 +19,7 @@ def _solve_beamformer(
 
     def solve_for(mu: torch.Tensor) -> torch.Tensor:
         mat = a + (mu[:, None, None] + eps) * eye
-        v_cols = torch.linalg.solve(mat, b)  # [B, Nt, K]
+        v_cols = torch.linalg.solve(mat, b)
         return v_cols.transpose(-1, -2).contiguous()
 
     mu0 = torch.zeros(batch, device=a.device, dtype=a.real.dtype)
@@ -61,9 +61,11 @@ def wmmse(
 ) -> torch.Tensor:
     """Classical weighted MMSE solver for single-cell MU-MISO WSR maximization.
 
-    Shape convention: H and V are [B, K, Nt].
+    Shape convention: H and V are [B, K, Nt]. User weights alpha are applied
+    exactly once in the beamformer update. The auxiliary variable w is the
+    inverse MSE, not alpha / MSE.
     """
-    batch, k, nt = h.shape
+    batch, k, _ = h.shape
     if weights is None:
         alpha = torch.ones(batch, k, device=h.device, dtype=h.real.dtype)
     elif weights.ndim == 1:
@@ -85,10 +87,12 @@ def wmmse(
         desired = torch.diagonal(g, dim1=-2, dim2=-1)
         u = desired / recv_power.clamp_min(eps)
         mse = 1.0 - 2.0 * torch.real(u.conj() * desired) + (torch.abs(u) ** 2) * recv_power
-        w = alpha / mse.clamp_min(eps)
+
+        # w is inverse MSE only; alpha is applied once below.
+        w = 1.0 / mse.clamp_min(eps)
 
         coeff = alpha * w * torch.abs(u) ** 2
-        a = torch.einsum("bk,bkn,bkm->bnm", coeff.to(h.real.dtype), h, h.conj())
+        a = torch.einsum("bk,bkn,bkm->bnm", coeff.to(h.dtype), h, h.conj())
         rhs = (alpha * w * u.conj()).to(h.dtype)[:, :, None] * h
         b = rhs.transpose(-1, -2).contiguous()
         v = _solve_beamformer(a, b, p_max=p_max, eps=eps)

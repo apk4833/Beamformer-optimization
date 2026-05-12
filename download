@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+.venv/
+.env
+runs/
+outputs/
+checkpoints/
+data/generated/
+third_party/

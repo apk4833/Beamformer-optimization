@@ -1,0 +1,28 @@
+seed: 0
+device: cuda
+system:
+  batch_size: 512
+  num_users: 4
+  num_tx_antennas: 8
+  p_max: 1.0
+  noise_var: 1.0e-3
+  weights: uniform
+channel:
+  type: iid_rayleigh
+  normalize: true
+baselines:
+  wmmse:
+    max_iter: 50
+    tol: 1.0e-5
+    eps: 1.0e-9
+  rzf:
+    reg: 1.0e-2
+unfolding:
+  num_layers: 5
+  pgd_steps: 3
+  init_step: 0.05
+training:
+  lr: 3.0e-4
+  epochs: 100
+  grad_clip: 5.0
+  log_every: 10

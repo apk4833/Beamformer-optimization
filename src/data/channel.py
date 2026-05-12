@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import torch
 
-from mu_miso_bf_lab.core.complex_ops import complex_normal
+from core.complex_ops import complex_normal
 
 
 def iid_rayleigh_channel(
@@ -16,7 +16,6 @@ def iid_rayleigh_channel(
     """Generate H with shape [B, K, Nt]."""
     h = complex_normal((batch_size, num_users, num_tx_antennas), device=device, dtype=dtype)
     if normalize:
-        # Keep E[||h_k||^2] roughly 1 rather than Nt, which stabilizes initial tests.
         h = h / (num_tx_antennas**0.5)
     return h
 

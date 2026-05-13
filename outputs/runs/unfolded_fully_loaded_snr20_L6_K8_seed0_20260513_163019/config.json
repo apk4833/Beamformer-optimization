@@ -1,0 +1,33 @@
+{
+  "batch_size": 128,
+  "checkpoint_every": 1000,
+  "device": "cuda",
+  "eval_batch_size": 4096,
+  "eval_every": 500,
+  "init_step": 1.0,
+  "log_every": 100,
+  "lr": 0.001,
+  "model_type": "unfolded",
+  "num_layers": 6,
+  "output_root": "outputs/runs",
+  "pgd_steps": 8,
+  "rate_threshold": 1.0,
+  "scenario": {
+    "channel": "iid_rayleigh",
+    "load_ratio": 1.0,
+    "name": "fully_loaded_snr20",
+    "noise_var": 0.01,
+    "notes": "Pellaco-style N=M=4, P/sigma^2=20 dB.",
+    "num_tx_antennas": 4,
+    "num_users": 4,
+    "p_max": 1.0,
+    "pathloss_db_high": 0.0,
+    "pathloss_db_low": 0.0,
+    "snr_db": 20.0
+  },
+  "scenario_name": "fully_loaded_snr20",
+  "scenario_set": "literature_core",
+  "seed": 0,
+  "steps": 15000,
+  "wmmse_iters": 50
+}
